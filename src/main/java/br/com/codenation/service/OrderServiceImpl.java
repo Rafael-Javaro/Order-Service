@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import br.com.codenation.model.OrderItem;
 import br.com.codenation.model.Product;
@@ -36,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public Set<Product> findProductsById(List<Long> ids) {
-		return null;
+		return this.productRepository.findAll().stream().filter(product -> ids.contains(product.getId())).collect(Collectors.toSet());
 	}
 
 	/**
