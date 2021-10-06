@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public Double calculateMultipleOrders(List<List<OrderItem>> orders) {
-		return null;
+		return orders.stream().mapToDouble(this::calculateOrderValue).sum();
 	}
 
 	/**
@@ -53,7 +53,9 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public Map<Boolean, List<Product>> groupProductsBySale(List<Long> productIds) {
-		return null;
+		return this.productRepository.findAll().stream()
+				.filter(product -> productIds.contains(product.getId()))
+				.collect(Collectors.groupingBy(Product::getIsSale));
 	}
 
 }
